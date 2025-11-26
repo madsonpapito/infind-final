@@ -1,6 +1,6 @@
 import type React from "react"
-import type { Metadata } from "next"
 import { GoogleTagManager } from "@next/third-parties/google"
+import Script from "next/script"
 import "./globals.css"
 
 export default function RootLayout({
@@ -12,14 +12,17 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <GoogleTagManager gtmId="GTM-MC8QD7T9" />
+        <Script
+          type="text/javascript"
+          src="https://app.monetizze.com.br/upsell_incorporado.php"
+          strategy="beforeInteractive"
+        />
       </head>
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
 
 export const metadata = {
-  generator: 'v0.app'
-};
+  generator: "v0.app",
+}

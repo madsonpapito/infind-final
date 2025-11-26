@@ -644,7 +644,7 @@ export default function Step2() {
 
         {/* --- MAIN BUTTON AND PRICE --- */}
         <a
-          href="https://pay.hotmart.com/P102903672F?checkoutMode=10"
+          href="https://pay.hotmart.com/T101928947F?checkoutMode=10"
           className="mt-6 block w-full bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 rounded-lg transition-colors shadow-lg hover:shadow-xl"
         >
           🔓 YES, I WANT THE COMPLETE REPORT
