@@ -1,6 +1,6 @@
 "use client"
 
-import { Search, Activity, MapPin, Eye, ShieldCheck, Heart, Camera, MessageSquare, Check, CheckCircle, Star, FolderArchive, Users } from 'lucide-react'
+import { Search, Activity, Instagram, MapPin, Eye, ShieldCheck, Heart, Camera, MessageSquare, Check, CheckCircle, Star, FolderArchive, Users } from 'lucide-react'
 import Image from "next/image"
 import { useRouter } from 'next/navigation'
 
@@ -29,8 +29,8 @@ export default function Step1() {
       <section className="bg-gradient-to-br from-[#1d1d3a] via-[#2a2a4b] to-[#3a2c6b] text-white py-16 px-4 overflow-hidden">
         <div className="container mx-auto max-w-3xl text-center flex flex-col items-center">
           
-          <div className="bg-gradient-to-br from-pink-500 to-red-500 p-4 rounded-2xl mb-8 shadow-lg">
-            <Search className="h-8 w-8 text-white" />
+          <div className="inline-block bg-pink p-4 rounded-2xl shadow-lg mb-6">
+      <Instagram className="h-10 w-10 text-white-600" />
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
