@@ -1,0 +1,22 @@
+{
+  "hooks\\useFacebookTracking.ts -> @/lib/facebook-tracking": {
+    "id": 4640,
+    "files": [
+      "static/chunks/aaea2bcf.8df723327e86abe0.js",
+      "static/chunks/470.05b7f067c32fdbd3.js",
+      "static/chunks/640.05c3ddf1375c100b.js"
+    ]
+  },
+  "node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
+    "id": 472,
+    "files": [
+      "static/chunks/472.a3826d29d6854395.js"
+    ]
+  },
+  "node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
+    "id": 9341,
+    "files": [
+      "static/chunks/341.df3329d77a5faa19.js"
+    ]
+  }
+}

@@ -46,6 +46,7 @@
     "embla-carousel": "latest",
     "embla-carousel-autoplay": "latest",
     "embla-carousel-react": "latest",
+    "framer-motion": "^12.31.0",
     "input-otp": "latest",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.454.0",

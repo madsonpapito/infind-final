@@ -1,0 +1,18 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/instagram/image/route": "/api/instagram/image",
+  "/api/instagram/posts/route": "/api/instagram/posts",
+  "/api/instagram/profile/route": "/api/instagram/profile",
+  "/api/whatsapp-photo/route": "/api/whatsapp-photo",
+  "/api/location/route": "/api/location",
+  "/initpage2/page": "/initpage2",
+  "/initpage1/page": "/initpage1",
+  "/initpage/page": "/initpage",
+  "/page": "/",
+  "/privacy/page": "/privacy",
+  "/special-offer/page": "/special-offer",
+  "/step-1-v2/page": "/step-1-v2",
+  "/step-1-v3/page": "/step-1-v3",
+  "/terms/page": "/terms",
+  "/step-2/page": "/step-2"
+}

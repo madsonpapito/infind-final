@@ -1,18 +1,18 @@
 {
-  "/api/instagram/image/route": "app/api/instagram/image/route.js",
   "/_not-found/page": "app/_not-found/page.js",
-  "/api/instagram/profile/route": "app/api/instagram/profile/route.js",
+  "/api/instagram/image/route": "app/api/instagram/image/route.js",
   "/api/instagram/posts/route": "app/api/instagram/posts/route.js",
+  "/api/instagram/profile/route": "app/api/instagram/profile/route.js",
   "/api/whatsapp-photo/route": "app/api/whatsapp-photo/route.js",
   "/api/location/route": "app/api/location/route.js",
-  "/initpage1/page": "app/initpage1/page.js",
   "/initpage2/page": "app/initpage2/page.js",
-  "/step-1-v2/page": "app/step-1-v2/page.js",
+  "/initpage1/page": "app/initpage1/page.js",
   "/initpage/page": "app/initpage/page.js",
   "/page": "app/page.js",
-  "/step-2/page": "app/step-2/page.js",
+  "/privacy/page": "app/privacy/page.js",
   "/special-offer/page": "app/special-offer/page.js",
-  "/terms/page": "app/terms/page.js",
+  "/step-1-v2/page": "app/step-1-v2/page.js",
   "/step-1-v3/page": "app/step-1-v3/page.js",
-  "/privacy/page": "app/privacy/page.js"
+  "/terms/page": "app/terms/page.js",
+  "/step-2/page": "app/step-2/page.js"
 }
