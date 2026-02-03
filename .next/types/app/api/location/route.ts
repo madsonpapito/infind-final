@@ -1,4 +1,4 @@
-// File: C:\Users\madso\insta-zap-tinder4-main (infidelityfind)\app\api\location\route.ts
+// File: C:\Users\madso\insta-zap-tinder4-main (infidelityfind) - FINAL\app\api\location\route.ts
 import * as entry from '../../../../../app/api/location/route.js'
 import type { NextRequest } from 'next/server.js'
 

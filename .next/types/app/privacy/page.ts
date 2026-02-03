@@ -1,4 +1,4 @@
-// File: C:\Users\madso\insta-zap-tinder4-main (infidelityfind)\app\privacy\page.tsx
+// File: C:\Users\madso\insta-zap-tinder4-main (infidelityfind) - FINAL\app\privacy\page.tsx
 import * as entry from '../../../../app/privacy/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

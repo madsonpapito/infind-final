@@ -1,4 +1,4 @@
-// File: C:\Users\madso\insta-zap-tinder4-main (infidelityfind)\app\api\whatsapp-photo\route.ts
+// File: C:\Users\madso\insta-zap-tinder4-main (infidelityfind) - FINAL\app\api\whatsapp-photo\route.ts
 import * as entry from '../../../../../app/api/whatsapp-photo/route.js'
 import type { NextRequest } from 'next/server.js'
 
