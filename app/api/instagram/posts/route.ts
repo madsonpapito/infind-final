@@ -52,9 +52,10 @@ export async function POST(request: NextRequest) {
       // Instagram120 API structure
       posts = result.result.edges.map((edge: any) => {
         const node = edge.node
+        const originalUrl = node.image_versions2?.candidates?.[0]?.url || node.display_url || ""
         return {
           id: node.id || node.pk,
-          imageUrl: node.image_versions2?.candidates?.[0]?.url || node.display_url || "",
+          imageUrl: originalUrl ? `/api/instagram/image?url=${encodeURIComponent(originalUrl)}` : "",
           caption: node.caption?.text || "",
           likes: node.like_count || 0,
           comments: node.comment_count || 0,
@@ -65,13 +66,16 @@ export async function POST(request: NextRequest) {
     } else if (result.data && result.data.user && result.data.user.edge_owner_to_timeline_media) {
       // Instagram Graph API structure
       const edges = result.data.user.edge_owner_to_timeline_media.edges
-      posts = edges.map((edge: any) => ({
-        id: edge.node.id,
-        imageUrl: edge.node.display_url,
-        caption: edge.node.edge_media_to_caption?.edges?.[0]?.node?.text || "",
-        likes: edge.node.edge_liked_by?.count || 0,
-        comments: edge.node.edge_media_to_comment?.count || 0,
-      }))
+      posts = edges.map((edge: any) => {
+        const originalUrl = edge.node.display_url
+        return {
+          id: edge.node.id,
+          imageUrl: originalUrl ? `/api/instagram/image?url=${encodeURIComponent(originalUrl)}` : "",
+          caption: edge.node.edge_media_to_caption?.edges?.[0]?.node?.text || "",
+          likes: edge.node.edge_liked_by?.count || 0,
+          comments: edge.node.edge_media_to_comment?.count || 0,
+        }
+      })
     } else if (result.data && Array.isArray(result.data)) {
       posts = result.data
     } else if (result.items && Array.isArray(result.items)) {
