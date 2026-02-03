@@ -1,10 +1,21 @@
+"use client"
+
 import { LegalFooter } from "@/components/legal-footer"
 import { Check, ShieldCheck, Lock, Eye, BookOpen, MessageCircle } from "lucide-react"
 import Link from "next/link"
+import { FacebookTracker } from "@/components/FacebookTracker"
 
 export default function InitPage() {
     return (
         <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+            {/* Facebook Tracking - envia evento ViewContent com dados enriquecidos */}
+            <FacebookTracker
+                eventName="ViewContent"
+                contentName="Sales Page - Reading Signs"
+                contentCategory="Offer"
+                customData={{ value: 37, currency: "BRL" }}
+            />
+
             {/* Hero Section */}
             <section className="bg-white pt-20 pb-16 px-4 md:px-8 shadow-sm">
                 <div className="max-w-4xl mx-auto text-center space-y-8">

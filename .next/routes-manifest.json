@@ -1,0 +1,139 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/d1",
+      "regex": "^/d1(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/d1(?:/)?$"
+    },
+    {
+      "page": "/d2",
+      "regex": "^/d2(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/d2(?:/)?$"
+    },
+    {
+      "page": "/initpage",
+      "regex": "^/initpage(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/initpage(?:/)?$"
+    },
+    {
+      "page": "/initpage1",
+      "regex": "^/initpage1(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/initpage1(?:/)?$"
+    },
+    {
+      "page": "/initpage2",
+      "regex": "^/initpage2(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/initpage2(?:/)?$"
+    },
+    {
+      "page": "/privacy",
+      "regex": "^/privacy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy(?:/)?$"
+    },
+    {
+      "page": "/step-1-v2",
+      "regex": "^/step\\-1\\-v2(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/step\\-1\\-v2(?:/)?$"
+    },
+    {
+      "page": "/step-1-v3",
+      "regex": "^/step\\-1\\-v3(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/step\\-1\\-v3(?:/)?$"
+    },
+    {
+      "page": "/step-2",
+      "regex": "^/step\\-2(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/step\\-2(?:/)?$"
+    },
+    {
+      "page": "/step-3",
+      "regex": "^/step\\-3(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/step\\-3(?:/)?$"
+    },
+    {
+      "page": "/step-4/female",
+      "regex": "^/step\\-4/female(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/step\\-4/female(?:/)?$"
+    },
+    {
+      "page": "/step-4/male",
+      "regex": "^/step\\-4/male(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/step\\-4/male(?:/)?$"
+    },
+    {
+      "page": "/terms",
+      "regex": "^/terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms(?:/)?$"
+    },
+    {
+      "page": "/u1",
+      "regex": "^/u1(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/u1(?:/)?$"
+    },
+    {
+      "page": "/u2",
+      "regex": "^/u2(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/u2(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  },
+  "rewrites": []
+}

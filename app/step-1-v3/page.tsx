@@ -16,7 +16,7 @@ export default function Step1V3() {
     const router = useRouter();
 
     const handleNavigate = () => {
-        router.push('/step-2');
+        router.push('/step-2?target=female');
     };
 
     return (

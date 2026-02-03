@@ -13,8 +13,10 @@ export async function GET(request: NextRequest) {
       status: 'success',
       city: 'São Paulo',
       country: 'Brazil',
+      region: 'SP',
+      postalCode: '01310-100',
       lat: -23.5505,
-      lon: -46.6333, // A resposta precisa ser 'lon' para bater com o frontend.
+      lon: -46.6333,
     });
   }
 
@@ -22,22 +24,26 @@ export async function GET(request: NextRequest) {
   try {
     const city = request.headers.get('x-vercel-ip-city');
     const country = request.headers.get('x-vercel-ip-country');
+    const region = request.headers.get('x-vercel-ip-country-region');
+    const postalCode = request.headers.get('x-vercel-ip-postal-code');
     const lat = request.headers.get('x-vercel-ip-latitude');
     const lon = request.headers.get('x-vercel-ip-longitude');
 
-    // Verificação de segurança: se algum header estiver faltando, retorna erro.
+    // Verificação de segurança: se os headers principais estiverem faltando, retorna erro.
     if (!city || !country || !lat || !lon) {
       console.error("Cabeçalhos de geolocalização da Vercel não foram encontrados em produção.");
       throw new Error("Cabeçalhos da Vercel ausentes.");
     }
-    
+
     // Retorna os dados da localização lidos diretamente dos cabeçalhos.
     return NextResponse.json({
       status: 'success',
       city,
       country,
-      lat: parseFloat(lat), // Converte a string para número
-      lon: parseFloat(lon), // Converte a string para número
+      region: region || '', // Estado/região pode ser null em alguns casos
+      postalCode: postalCode || '', // CEP pode ser null em alguns casos
+      lat: parseFloat(lat),
+      lon: parseFloat(lon),
     });
 
   } catch (error: any) {
