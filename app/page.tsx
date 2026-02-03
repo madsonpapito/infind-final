@@ -1,100 +1,124 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { CheckCircle, ShieldCheck, ChevronRight, User } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { Flame } from "lucide-react"
 
-export default function LandingPage() {
+export default function Home() {
   const router = useRouter()
-  const [exposedCount, setExposedCount] = useState(3218)
-
-  useEffect(() => {
-    // Increment the counter slightly to show activity
-    const interval = setInterval(() => {
-      setExposedCount((prev) => prev + Math.floor(Math.random() * 2))
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
+  const [selectedGender, setSelectedGender] = useState<"male" | "female" | null>(null)
 
   const handleSelection = (gender: "male" | "female") => {
-    if (gender === "male") {
-      router.push("/step-1-v2") // Monitor Boyfriend
-    } else {
-      router.push("/step-1-v3") // Monitor Girlfriend
-    }
+    setSelectedGender(gender)
+    setTimeout(() => {
+      if (gender === "male") router.push("/step-1-v2") // Boyfriend
+      if (gender === "female") router.push("/step-1-v3") // Girlfriend
+    }, 400)
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans">
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden p-8 text-center border border-gray-100">
-        <h1 className="text-4xl font-extrabold text-[#0F172A] tracking-tight mb-2">DEEPLINKS</h1>
-        <p className="text-gray-500 text-sm uppercase tracking-widest font-medium mb-8">
-          Advanced Partner Monitoring System
-        </p>
+    <main className="min-h-screen w-full flex flex-col items-center justify-center p-4 relative overflow-hidden bg-[#0A1128]">
 
-        <h2 className="text-xl font-bold text-[#1E293B] mb-4">
-          Discover the Truth About Your Partner
-        </h2>
+      {/* Background Gradients */}
+      <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-[#00D9FF] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-[#FF6B35] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse delay-1000"></div>
 
-        <p className="text-gray-600 text-sm leading-relaxed mb-8">
-          Our advanced monitoring system provides comprehensive insights into your partner's activities across all
-          platforms.
-        </p>
+      {/* Trust Badge */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center gap-2 bg-[#00D9FF]/10 border border-[#00D9FF]/20 px-4 py-1.5 rounded-full mb-8"
+      >
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D9FF] opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D9FF]"></span>
+        </span>
+        <span className="text-[#00D9FF] text-[10px] font-mono tracking-widest uppercase">System Online • v4.2.0</span>
+      </motion.div>
 
-        <h3 className="text-lg font-bold text-[#1E293B] mb-6">Select Target Gender</h3>
-
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          <button
-            onClick={() => handleSelection("male")}
-            className="flex flex-col items-center justify-center p-6 border-2 border-gray-200 rounded-2xl hover:border-[#0F172A] hover:bg-gray-50 transition-all duration-300 group"
-          >
-            <div className="w-12 h-12 mb-3 rounded-full border-2 border-[#0F172A] flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="w-6 h-6 text-[#0F172A]"
-              >
-                <circle cx="10" cy="14" r="5" />
-                <line x1="19" y1="5" x2="13.5" y2="10.5" />
-                <polyline points="19 5 14 5 19 10" />
-              </svg>
-            </div>
-            <span className="font-bold text-[#0F172A] text-sm">Monitor My</span>
-            <span className="font-extrabold text-[#0F172A] text-lg">Boyfriend</span>
-          </button>
-
-          <button
-            onClick={() => handleSelection("female")}
-            className="flex flex-col items-center justify-center p-6 border-2 border-gray-200 rounded-2xl hover:border-[#0F172A] hover:bg-gray-50 transition-all duration-300 group"
-          >
-            <div className="w-12 h-12 mb-3 rounded-full border-2 border-[#0F172A] flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="w-6 h-6 text-[#0F172A]"
-              >
-                <circle cx="12" cy="9" r="5" />
-                <line x1="12" y1="14" x2="12" y2="21" />
-                <line x1="9" y1="18" x2="15" y2="18" />
-              </svg>
-            </div>
-            <span className="font-bold text-[#0F172A] text-sm">Monitor My</span>
-            <span className="font-extrabold text-[#0F172A] text-lg">Girlfriend</span>
-          </button>
-        </div>
-
-        <div className="flex items-center justify-center gap-2 text-gray-500 text-sm">
-          <Flame className="w-5 h-5 text-orange-500 fill-orange-500 animate-pulse" />
-          <span>
-            <strong className="text-gray-700">{exposedCount.toLocaleString()}</strong> partners already exposed this
-            week
-          </span>
-        </div>
+      <div className="text-center space-y-2 mb-10 max-w-lg z-10">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-4xl md:text-5xl font-black text-white tracking-tight"
+        >
+          Start Investigation
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-gray-400 text-lg"
+        >
+          Who do you want to monitor? select an option below:
+        </motion.p>
       </div>
-    </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl z-10">
+
+        {/* OPTION 1: BOYFRIEND */}
+        <motion.button
+          whileHover={{ scale: 1.02, backgroundColor: "rgba(0, 217, 255, 0.05)" }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => handleSelection("male")}
+          className={`
+                group relative flex items-center justify-between p-6 rounded-2xl border transition-all duration-300
+                ${selectedGender === 'male' ? 'bg-[#00D9FF]/10 border-[#00D9FF]' : 'bg-[#0A1128]/50 border-white/10 hover:border-[#00D9FF]/50'}
+            `}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-[#00D9FF] transition-colors">
+              <span className="text-3xl">👨🏻</span>
+            </div>
+            <div className="text-left">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#00D9FF] transition-colors">My Boyfriend</h3>
+              <p className="text-xs text-gray-500 font-mono">Check for: Tinder, WhatsApp, DM</p>
+            </div>
+          </div>
+          <ChevronRight className={`text-gray-600 group-hover:text-[#00D9FF] transition-colors ${selectedGender === 'male' ? 'translate-x-1' : ''}`} />
+        </motion.button>
+
+        {/* OPTION 2: GIRLFRIEND */}
+        <motion.button
+          whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 107, 53, 0.05)" }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => handleSelection("female")}
+          className={`
+                group relative flex items-center justify-between p-6 rounded-2xl border transition-all duration-300
+                ${selectedGender === 'female' ? 'bg-[#FF6B35]/10 border-[#FF6B35]' : 'bg-[#0A1128]/50 border-white/10 hover:border-[#FF6B35]/50'}
+            `}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center group-hover:bg-[#FF6B35] transition-colors">
+              <span className="text-3xl">👩🏻</span>
+            </div>
+            <div className="text-left">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#FF6B35] transition-colors">My Girlfriend</h3>
+              <p className="text-xs text-gray-500 font-mono">Check for: Instagram, Locations</p>
+            </div>
+          </div>
+          <ChevronRight className={`text-gray-600 group-hover:text-[#FF6B35] transition-colors ${selectedGender === 'female' ? 'translate-x-1' : ''}`} />
+        </motion.button>
+
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-12 flex items-center gap-6 opacity-50 grayscale hover:grayscale-0 transition-all z-10"
+      >
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4 text-emerald-500" />
+          <span className="text-xs text-gray-400">100% Anonymous</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <CheckCircle className="h-4 w-4 text-emerald-500" />
+          <span className="text-xs text-gray-400">AES-256 Encryption</span>
+        </div>
+      </motion.div>
+
+    </main>
   )
 }

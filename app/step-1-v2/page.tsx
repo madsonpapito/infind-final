@@ -1,339 +1,99 @@
 "use client"
 
-import { Search, Shield, ShieldCheck, Heart, MessageSquare, Check, CheckCircle, Star, Users, AlertTriangle } from 'lucide-react'
-import Image from "next/image"
-import { useRouter } from 'next/navigation'
-import { FacebookTracker } from '@/components/FacebookTracker'
-
-
-const StarRating = ({ rating = 5 }) => (
-    <div className="flex text-yellow-400">
-        {Array.from({ length: rating }).map((_, index) => (
-            <Star key={index} className="w-5 h-5 fill-current" />
-        ))}
-    </div>
-);
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { ArrowLeft, CheckCircle, Shield, Play } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export default function Step1V2() {
-    const router = useRouter();
+    const router = useRouter()
 
     const handleNavigate = () => {
-        router.push('/step-2?target=male');
-    };
+        // Simulate "Data Initialization" before navigation
+        router.push('/step-2?target=male')
+    }
 
     return (
-        <div className="bg-white text-gray-800 font-sans">
-            {/* Facebook Tracking - envia dados enriquecidos para o dataLayer */}
-            <FacebookTracker
-                eventName="Lead"
-                contentName="Step 1 V2 - Landing Page"
-                contentCategory="Sales Funnel"
-            />
+        <main className="min-h-screen bg-[#0A1128] text-white flex flex-col relative overflow-hidden font-sans">
 
-            {/* Hero Section */}
-            <section className="bg-gradient-to-br from-[#1d1d3a] via-[#2a2a4b] to-[#3a2c6b] text-white py-16 px-4 overflow-hidden">
-                <div className="container mx-auto max-w-3xl text-center flex flex-col items-center">
+            {/* Dynamic Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-[-100px] right-[-100px] w-[500px] h-[500px] bg-[#00D9FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse"></div>
+                <div className="absolute top-[40%] left-[-200px] w-[600px] h-[600px] bg-[#0A1128] rounded-full mix-blend-screen filter blur-[120px] opacity-50"></div>
+            </div>
 
-                    <div className="inline-block bg-red-500/20 p-4 rounded-2xl shadow-lg mb-6 border border-red-500/30">
-                        <Shield className="h-10 w-10 text-red-400" />
+            {/* Navbar */}
+            <nav className="p-4 z-10 flex items-center justify-between border-b border-white/5 bg-[#0A1128]/80 backdrop-blur-md sticky top-0">
+                <button onClick={() => router.back()} className="text-gray-400 hover:text-white transition-colors">
+                    <ArrowLeft className="w-6 h-6" />
+                </button>
+                <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <span className="text-[10px] font-mono tracking-widest text-green-500 uppercase">Secure Connection</span>
+                </div>
+            </nav>
+
+            {/* Content */}
+            <div className="flex-1 flex flex-col items-center px-6 py-10 z-10 max-w-lg mx-auto w-full">
+
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center space-y-4 mb-8"
+                >
+                    <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#00D9FF]/10 ring-1 ring-[#00D9FF]/50 mb-4 shadow-[0_0_20px_rgba(0,217,255,0.2)]">
+                        <span className="text-3xl">🕵🏻‍♂️</span>
                     </div>
-
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
-                        Did He Call You <span className="text-red-500">&quot;Crazy&quot;</span> <br className="hidden md:block" />
-                        When You Asked?
+                    <h1 className="text-3xl font-black leading-tight">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Discover if your <br /></span>
+                        <span className="text-[#00D9FF]">Boyfriend</span> is hiding something.
                     </h1>
-
-                    <p className="text-lg text-gray-300 mb-4 max-w-xl">
-                        The manipulator uses your doubt against you.
+                    <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto">
+                        Our advanced AI scans public databases, social interactions, and hidden dating profiles to find the truth.
                     </p>
+                </motion.div>
 
-                    <p className="text-xl text-white font-bold mb-8 max-w-xl">
-                        Get the proof. End the mind games. <span className="text-red-400">Today.</span>
-                    </p>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="w-full space-y-3 mb-8"
+                >
+                    <FeatureCard icon="📱" title="WhatsApp Activity" desc="Analyze online times & hidden chats." />
+                    <FeatureCard icon="🔥" title="Tinder & Bumble" desc="Check if he has active dating profiles." />
+                    <FeatureCard icon="📸" title="Instagram DMs" desc="See who he interacts with the most." />
+                </motion.div>
 
-                    <div className="inline-flex items-center bg-green-900/50 text-green-300 border border-green-700 rounded-full px-4 py-1.5 text-sm mb-8">
-                        <CheckCircle className="h-4 w-4 mr-2 flex-shrink-0" />
-                        <span>Digital Footprint Analysis - Updated January 2026</span>
-                    </div>
+                <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    onClick={handleNavigate}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full py-4 bg-gradient-to-r from-[#00D9FF] to-[#00b8d9] rounded-xl font-bold text-[#0A1128] text-lg shadow-[0_0_30px_rgba(0,217,255,0.3)] flex items-center justify-center gap-2"
+                >
+                    START INVESTIGATION <Play className="w-4 h-4 fill-current" />
+                </motion.button>
 
-                    {/* VOC-Based Trigger Bullets */}
-                    <div className="w-full max-w-lg space-y-4 text-left mb-8">
+                <p className="mt-4 text-[10px] text-gray-500 text-center uppercase tracking-widest">
+                    By continuing, you agree to our Terms of Service.
+                </p>
 
-                        <div className="bg-white/10 p-4 rounded-lg flex items-start gap-4 border-l-[6px] border-red-500 shadow-md">
-                            <div className="text-3xl mt-1">🚿</div>
-                            <div className="text-sm text-gray-200 leading-relaxed">
-                                <span className="font-bold text-white text-base block mb-1">Does He Take His Phone Into the Shower?</span>
-                                Who does that unless they&apos;re waiting for something they can&apos;t let you see?
-                            </div>
-                        </div>
+            </div>
 
-                        <div className="bg-white/10 p-4 rounded-lg flex items-start gap-4 border-l-[6px] border-blue-400 shadow-md">
-                            <div className="text-3xl mt-1">🌙</div>
-                            <div className="text-sm text-gray-200 leading-relaxed">
-                                <span className="font-bold text-white text-base block mb-1">Does the Blue Light Wake You at 2 AM?</span>
-                                You see him smiling at the screen. He thinks you&apos;re asleep. <span className="text-blue-300 font-semibold">You&apos;re not.</span>
-                            </div>
-                        </div>
+        </main>
+    )
+}
 
-                        <div className="bg-white/10 p-4 rounded-lg flex items-start gap-4 border-l-[6px] border-yellow-400 shadow-md">
-                            <div className="text-3xl mt-1">🔐</div>
-                            <div className="text-sm text-gray-200 leading-relaxed">
-                                <span className="font-bold text-white text-base block mb-1">Did He Suddenly Change His Password Yesterday?</span>
-                                Your hands were shaking when you tried to check. We understand.
-                            </div>
-                        </div>
-
-                        <div className="bg-white/10 p-4 rounded-lg flex items-start gap-4 border-l-[6px] border-purple-400 shadow-md">
-                            <div className="text-3xl mt-1">📱</div>
-                            <div className="text-sm text-gray-200 leading-relaxed">
-                                <span className="font-bold text-white text-base block mb-1">Why Does a Married Man Need Telegram or Signal?</span>
-                                Hidden apps. Hidden notifications. <span className="text-purple-300 font-semibold">What&apos;s he hiding from you?</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button
-                        onClick={handleNavigate}
-                        className="w-full max-w-lg bg-gradient-to-r from-red-500 to-pink-600 hover:opacity-90 text-white font-bold py-4 px-6 rounded-full text-lg shadow-lg transition-transform transform hover:scale-105"
-                    >
-                        🛡️ STOP SUFFERING. KNOW TODAY.
-                    </button>
-                    <p className="text-xs text-gray-400 mt-2">100% anonymous investigation. They&apos;ll never know you checked.</p>
-                </div>
-            </section>
-
-            {/* Validation Section */}
-            <section className="py-20 px-4 bg-gradient-to-b from-slate-50 to-white">
-                <div className="container mx-auto max-w-3xl text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                        You&apos;re Not Crazy.
-                    </h2>
-                    <h3 className="text-3xl md:text-4xl font-bold text-red-500 mb-6">
-                        You Just Didn&apos;t Have Proof... <span className="text-slate-800">Yet.</span>
-                    </h3>
-
-                    <p className="text-gray-600 max-w-2xl mx-auto mb-10 text-lg">
-                        The anxiety that wakes you up at 3 AM is not paranoia — <strong className="text-slate-800">it&apos;s intuition.</strong>
-                    </p>
-
-                    <div className="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 text-left max-w-xl mx-auto mb-10">
-                        <h4 className="font-bold text-lg mb-4 text-slate-800 flex items-center gap-2">
-                            <AlertTriangle className="h-5 w-5 text-amber-500" />
-                            Signs of Gaslighting:
-                        </h4>
-                        <ul className="space-y-3">
-                            <li className="flex items-start gap-3">
-                                <span className="text-red-500 mt-1">✗</span>
-                                <span className="text-gray-700">He calls you <strong>&quot;jealous&quot;</strong> when you ask questions.</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <span className="text-red-500 mt-1">✗</span>
-                                <span className="text-gray-700">He says you&apos;re <strong>&quot;imagining things&quot;</strong> when you notice changes.</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <span className="text-red-500 mt-1">✗</span>
-                                <span className="text-gray-700">He makes <strong>YOU</strong> feel guilty for noticing <strong>HIS</strong> behavior.</span>
-                            </li>
-                        </ul>
-                        <div className="mt-6 pt-4 border-t border-slate-200">
-                            <p className="text-red-600 font-bold text-lg">This is gaslighting. And it ends today.</p>
-                        </div>
-                    </div>
-
-                    <p className="text-lg text-black font-bold max-w-xl mx-auto">
-                        You deserve clarity. You deserve the truth.
-                    </p>
-                </div>
-            </section>
-
-            {/* False Solutions Section */}
-            <section className="py-20 px-4 bg-slate-900 text-white">
-                <div className="container mx-auto max-w-3xl text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                        The Enemy Is Not You.
-                    </h2>
-                    <h3 className="text-2xl md:text-3xl font-bold text-red-400 mb-10">
-                        It&apos;s The Doubt.
-                    </h3>
-
-                    <div className="text-left max-w-xl mx-auto mb-10">
-                        <p className="text-slate-300 mb-6 text-lg">You&apos;ve already tried:</p>
-                        <div className="space-y-4">
-                            <div className="flex items-start gap-3 bg-white/5 p-4 rounded-lg border border-white/10">
-                                <span className="text-red-400 text-xl">❌</span>
-                                <div>
-                                    <p className="font-semibold text-white">Guessing his password</p>
-                                    <p className="text-slate-400 text-sm">Frustrating. And he changed it anyway.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3 bg-white/5 p-4 rounded-lg border border-white/10">
-                                <span className="text-red-400 text-xl">❌</span>
-                                <div>
-                                    <p className="font-semibold text-white">Creating a fake profile to test him</p>
-                                    <p className="text-slate-400 text-sm">He didn&apos;t fall for it. Or worse, he did.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3 bg-white/5 p-4 rounded-lg border border-white/10">
-                                <span className="text-red-400 text-xl">❌</span>
-                                <div>
-                                    <p className="font-semibold text-white">Asking him directly</p>
-                                    <p className="text-slate-400 text-sm">He denied everything and made you feel crazy.</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-3 bg-white/5 p-4 rounded-lg border border-white/10">
-                                <span className="text-red-400 text-xl">❌</span>
-                                <div>
-                                    <p className="font-semibold text-white">Ignoring the signs</p>
-                                    <p className="text-slate-400 text-sm">The anxiety got worse every single day.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 p-6 rounded-2xl border border-green-500/30 max-w-xl mx-auto">
-                        <p className="text-lg text-slate-200 mb-2">
-                            <strong className="text-white">None of it worked.</strong> Because he knows how to hide.
-                        </p>
-                        <p className="text-xl text-green-400 font-bold">
-                            But digital footprints don&apos;t lie.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Features Grid */}
-            <section className="py-20 px-4 bg-white">
-                <div className="container mx-auto max-w-4xl text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-2">
-                        What Our System Reveals
-                    </h2>
-                    <p className="text-gray-500 max-w-2xl mx-auto mb-12">
-                        Advanced techniques that uncover what they tried to hide.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-center border border-slate-100 hover:shadow-xl transition-shadow">
-                            <div className="inline-block bg-pink-100 p-4 rounded-xl mb-4">
-                                <Search className="h-8 w-8 text-pink-500" />
-                            </div>
-                            <h4 className="font-bold text-lg mb-2">DATING APP PROFILES</h4>
-                            <p className="text-gray-500 text-sm">Hidden Tinder, Bumble, Hinge profiles linked to his number or email.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-center border border-slate-100 hover:shadow-xl transition-shadow">
-                            <div className="inline-block bg-purple-100 p-4 rounded-xl mb-4">
-                                <Users className="h-8 w-8 text-purple-500" />
-                            </div>
-                            <h4 className="font-bold text-lg mb-2">SUSPICIOUS INTERACTIONS</h4>
-                            <p className="text-gray-500 text-sm">Profiles visited repeatedly. Late-night likes. Comments he deleted.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-center border border-slate-100 hover:shadow-xl transition-shadow">
-                            <div className="inline-block bg-red-100 p-4 rounded-xl mb-4">
-                                <Heart className="h-8 w-8 text-red-500" />
-                            </div>
-                            <h4 className="font-bold text-lg mb-2">SECRET FOLLOWS</h4>
-                            <p className="text-gray-500 text-sm">New private profiles he started following. The &quot;work friend.&quot; The ex.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-center border border-slate-100 hover:shadow-xl transition-shadow">
-                            <div className="inline-block bg-orange-100 p-4 rounded-xl mb-4">
-                                <MessageSquare className="h-8 w-8 text-orange-500" />
-                            </div>
-                            <h4 className="font-bold text-lg mb-2">DIGITAL FOOTPRINT</h4>
-                            <p className="text-gray-500 text-sm">Activity traces that remain even after &quot;deleting&quot; conversations.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Testimonials Section */}
-            <section className="bg-gray-50 py-20 px-4">
-                <div className="container mx-auto max-w-3xl text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-12">
-                        Over <span className="text-red-500">127,000 people</span> already discovered the truth.
-                    </h2>
-                    <div className="space-y-8">
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-left">
-                            <div className="flex items-center mb-4">
-                                <Image src="/images/83.jpg" alt="Sarah" width={48} height={48} className="rounded-full mr-4" />
-                                <div>
-                                    <p className="font-bold">Sarah, 42</p>
-                                    <p className="text-sm text-green-600 flex items-center"><Check className="h-4 w-4 mr-1" />Verified User</p>
-                                </div>
-                            </div>
-                            <blockquote className="text-gray-600 italic mb-3">
-                                &quot;For 8 months I felt that something was wrong. He denied everything. Called me paranoid. The tool showed me conversations with his &apos;best friend&apos; that made me cry for days.&quot;
-                            </blockquote>
-                            <p className="text-red-600 font-bold text-sm">I wasn&apos;t crazy. I was right.</p>
-                            <div className="mt-3">
-                                <StarRating />
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-left">
-                            <div className="flex items-center mb-4">
-                                <Image src="/images/86.jpg" alt="Jennifer" width={48} height={48} className="rounded-full mr-4" />
-                                <div>
-                                    <p className="font-bold">Jennifer, 33</p>
-                                    <p className="text-sm text-gray-500">Investigation completed January 2026</p>
-                                </div>
-                            </div>
-                            <blockquote className="text-gray-600 italic mb-3">
-                                &quot;My fiancé was exchanging intimate messages with 3 different women. I called off the wedding 2 weeks before. It hurt, but it saved me from a lie.&quot;
-                            </blockquote>
-                            <p className="text-red-600 font-bold text-sm">My intuition was right all along.</p>
-                            <div className="mt-3">
-                                <StarRating />
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-xl shadow-lg text-left">
-                            <div className="flex items-center mb-4">
-                                <Image src="/images/87.jpg" alt="Michelle" width={48} height={48} className="rounded-full mr-4" />
-                                <div>
-                                    <p className="font-bold">Michelle, 35</p>
-                                    <p className="text-sm text-green-600 flex items-center"><Check className="h-4 w-4 mr-1" />Verified User</p>
-                                </div>
-                            </div>
-                            <blockquote className="text-gray-600 italic mb-3">
-                                &quot;My husband swore I was crazy, that she was &apos;just a work friend.&apos; The tool showed provocative photos he was liking at 2 AM. Now I&apos;m moving forward without doubts.&quot;
-                            </blockquote>
-                            <p className="text-red-600 font-bold text-sm">I wasn&apos;t crazy. I was awake.</p>
-                            <div className="mt-3">
-                                <StarRating />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Final CTA Section */}
-            <section className="bg-[#1d1d3a] py-16 px-4">
-                <div className="container mx-auto max-w-2xl text-center">
-
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight drop-shadow-md">
-                        You Deserve The Truth.
-                    </h2>
-                    <p className="text-xl text-slate-300 mb-8">
-                        One way or another, <strong className="text-white">sleep peacefully tonight.</strong>
-                    </p>
-
-                    <button
-                        onClick={handleNavigate}
-                        className="w-full max-w-lg bg-[#FF4081] hover:bg-[#f53677] text-white font-extrabold py-5 px-6 rounded-full text-lg md:text-xl shadow-[0_10px_40px_-10px_rgba(255,64,129,0.6)] transition-all transform hover:scale-105 flex items-center justify-center gap-3 mx-auto"
-                    >
-                        <span className="text-2xl">🛡️</span> I DESERVE THE TRUTH. START NOW.
-                    </button>
-
-                    <div className="mt-6 space-y-2">
-                        <p className="text-sm text-gray-300">
-                            100% anonymous. Your investigation will remain completely private.
-                        </p>
-                        <p className="text-sm text-gray-400">
-                            More than 127,000 people have already discovered the truth.
-                        </p>
-                    </div>
-
-                </div>
-            </section>
-
+function FeatureCard({ icon, title, desc }: { icon: string, title: string, desc: string }) {
+    return (
+        <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#00D9FF]/30 transition-colors backdrop-blur-sm">
+            <span className="text-2xl">{icon}</span>
+            <div>
+                <h3 className="font-bold text-white text-sm">{title}</h3>
+                <p className="text-gray-400 text-xs mt-0.5">{desc}</p>
+            </div>
         </div>
     )
 }

@@ -1,633 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Analysis Access</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- OBS: O SCRIPT DA MUNDPAY FOI REMOVIDO DAQUI E SERÁ INSERIDO PELO JAVASCRIPT NO FINAL -->
-    
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Animation classes */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A1128;
+            color: white;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-card {
+            background: rgba(10, 17, 40, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .spy-input {
+            background: rgba(5, 8, 20, 0.8);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: white;
+        }
+
+        .spy-input:focus {
+            border-color: #00D9FF;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+            outline: none;
+        }
+
+        /* Animations */
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .animate-scan {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 217, 255, 0.2), transparent);
+            animation: scanline 2s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(0, 217, 255, 0.5);
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<body class="min-h-screen flex flex-col relative overflow-hidden">
+
+    <!-- Background Effects -->
+    <div
+        class="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-[#00D9FF] rounded-full mix-blend-screen filter blur-[150px] opacity-10 animate-pulse pointer-events-none">
+    </div>
+    <div
+        class="fixed bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-[#FF6B35] rounded-full mix-blend-screen filter blur-[150px] opacity-10 animate-pulse pointer-events-none">
+    </div>
 
     <!-- Top Banner -->
-    <div class="bg-red-600 text-center py-2.5 px-4 sticky top-0 z-50">
-        <p class="text-sm font-semibold">
-            <span class="text-white">Attention: do not close this page, </span>
-            <span class="text-yellow-300">Your payment is still being processed.</span>
+    <div class="bg-red-600/90 backdrop-blur-sm text-center py-2.5 px-4 sticky top-0 z-50 border-b border-red-500/50">
+        <p class="text-xs md:text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+            <i data-lucide="alert-triangle" class="h-4 w-4"></i>
+            <span>Do not close this page. Payment processing...</span>
         </p>
     </div>
 
     <!-- Main Content -->
-    <div class="flex-grow flex flex-col items-center justify-center px-4 py-12">
+    <div class="flex-grow flex flex-col items-center justify-center px-4 py-8 relative z-10">
         <main class="w-full max-w-md mx-auto text-center space-y-8">
-            
-            <!-- Intro Text -->
-            <div id="intro-section">
-                <p class="text-lg text-gray-800 mb-6">
-                    <span class="font-bold text-red-600">ATTENTION!</span> Our system has identified that many of the new Instagram conversations are being completed on WhatsApp.
+
+            <!-- INTRO SECTION -->
+            <div id="intro-section" class="animate-fade-in">
+
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D9FF]/10 border border-[#00D9FF]/30 text-[#00D9FF] text-[10px] font-mono tracking-widest mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D9FF] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00D9FF]"></span>
+                    </span>
+                    SYSTEM NOTIFICATION
+                </div>
+
+                <h1 class="text-2xl md:text-3xl font-black mb-4 leading-tight">
+                    <span class="text-green-500">WhatsApp</span> Traffic <br>Detected.
+                </h1>
+
+                <p class="text-gray-400 mb-8 font-light">
+                    Our scanner identified encrypted chat logs linked to the target. <strong
+                        class="text-white font-bold">Clone the connection</strong> to view messages.
                 </p>
 
-                <div class="flex items-center justify-center gap-2 text-green-500 font-semibold text-lg mb-6">
-                    <i data-lucide="message-circle" class="w-8 h-8 fill-current"></i>
-                    <span>WhatsApp</span>
+                <!-- Profile Circle -->
+                <div
+                    class="mx-auto mb-8 h-32 w-32 rounded-full glass-card flex items-center justify-center overflow-hidden relative group">
+                    <div class="absolute inset-0 border-2 border-[#00D9FF]/50 rounded-full animate-pulse-glow"></div>
+                    <img id="main-profile-photo" src="/placeholder.svg" alt="Profile"
+                        class="object-cover h-full w-full hidden opacity-80">
+                    <i id="main-profile-icon" data-lucide="user" class="h-12 w-12 text-[#00D9FF]"></i>
+                    <i id="main-profile-loader" data-lucide="loader-2"
+                        class="h-10 w-10 text-[#00D9FF] animate-spin hidden absolute"></i>
                 </div>
 
-                <!-- Profile Photo Circle -->
-                <div class="mx-auto mb-6 h-32 w-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-white shadow-lg relative">
-                    <img id="main-profile-photo" src="/placeholder.svg" alt="Profile" class="object-cover h-full w-full hidden">
-                    <i id="main-profile-icon" data-lucide="user" class="h-16 w-16 text-gray-400"></i>
-                    <i id="main-profile-loader" data-lucide="loader-2" class="h-10 w-10 text-gray-500 animate-spin hidden absolute"></i>
-                </div>
-
-                <div>
-                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Congratulations, you've earned<br />1 free access!</h1>
-                    <p class="text-lg text-gray-500">Enter the number below and start silent monitoring.</p>
-                </div>
             </div>
 
             <!-- FORM SECTION -->
-            <div id="form-section" class="w-full space-y-6">
-                
-                <!-- Gender Selection -->
-                <div class="w-full space-y-4 text-left">
-                    <h2 class="font-semibold text-gray-800 text-lg">What gender are they?</h2>
-                    <div class="grid grid-cols-3 gap-3">
-                        <button onclick="selectGender('Male')" id="btn-male" class="gender-btn flex flex-col items-center justify-center gap-2 p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:border-gray-300 transition-all duration-200">
-                            <span class="text-5xl">👨🏻</span>
-                            <span class="font-medium text-gray-700">Male</span>
-                        </button>
-                        <button onclick="selectGender('Female')" id="btn-female" class="gender-btn flex flex-col items-center justify-center gap-2 p-4 bg-white border border-blue-500 ring-2 ring-blue-500/20 rounded-xl shadow-sm transition-all duration-200">
-                            <span class="text-5xl">👩🏻</span>
-                            <span class="font-medium text-gray-700">Female</span>
-                        </button>
-                        <button onclick="selectGender('Non-binary')" id="btn-non-binary" class="gender-btn flex flex-col items-center justify-center gap-2 p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:border-gray-300 transition-all duration-200">
-                            <span class="text-5xl">🧑🏻</span>
-                            <span class="font-medium text-gray-700">Non-binary</span>
-                        </button>
-                    </div>
-                </div>
+            <div id="form-section" class="w-full space-y-6 animate-fade-in delay-100">
 
                 <!-- Input Group -->
-                <div class="flex items-center bg-white rounded-xl border-2 border-gray-300 shadow-sm focus-within:ring-2 focus-within:ring-green-500 focus-within:border-green-500 transition-all relative z-20">
-                    <div class="relative">
-                        <button type="button" onclick="toggleCountryDropdown()" class="flex items-center gap-2 h-14 px-4 bg-gray-50 hover:bg-gray-100 rounded-l-lg transition-colors">
-                            <span id="selected-flag" class="text-2xl">🇺🇸</span>
-                            <span id="selected-code" class="text-gray-800 font-medium">+1</span>
-                        </button>
-                        
-                        <!-- Country Dropdown -->
-                        <div id="country-dropdown" class="hidden absolute top-full left-0 mt-2 bg-white border rounded-xl shadow-lg w-80 max-h-72 overflow-y-auto z-50">
-                            <div class="p-2 sticky top-0 bg-white border-b">
-                                <input type="text" id="country-search" placeholder="Search country..." class="w-full px-3 py-2 border rounded-lg text-sm" oninput="filterCountries()">
+                <div class="relative z-20">
+                    <label class="block text-left text-xs font-mono text-[#00D9FF] mb-2 ml-1">ENTER TARGET PHONE
+                        NUMBER</label>
+                    <div
+                        class="flex items-center rounded-xl overflow-hidden glass-card transition-all focus-within:ring-2 focus-within:ring-[#00D9FF]/50">
+                        <div class="relative">
+                            <button type="button" onclick="toggleCountryDropdown()"
+                                class="flex items-center gap-2 h-14 px-4 bg-[#0A1128]/50 hover:bg-[#0A1128] transition-colors border-r border-[#00D9FF]/20">
+                                <span id="selected-flag" class="text-xl">🇺🇸</span>
+                                <span id="selected-code" class="text-gray-300 font-mono text-sm">+1</span>
+                            </button>
+
+                            <!-- Country Dropdown -->
+                            <div id="country-dropdown"
+                                class="hidden absolute top-full left-0 mt-2 bg-[#0A1128] border border-[#00D9FF]/20 rounded-xl shadow-xl w-72 max-h-60 overflow-y-auto z-50">
+                                <ul id="country-list" class="py-1 text-left">
+                                    <!-- JS Injected -->
+                                </ul>
                             </div>
-                            <ul id="country-list" class="py-1">
-                                <!-- Countries injected via JS -->
-                            </ul>
                         </div>
+
+                        <input type="tel" id="phone-input" placeholder="(555) 000-0000"
+                            class="flex-1 h-14 bg-transparent border-none text-white px-4 outline-none font-mono text-lg placeholder:text-gray-600"
+                            oninput="handlePhoneInput(this)">
                     </div>
-                    <div class="h-8 w-px bg-gray-200"></div>
-                    <input type="tel" id="phone-input" placeholder="(555) 123-4567" class="flex-1 h-14 text-lg border-none bg-transparent focus:ring-0 px-4 outline-none w-full" oninput="handlePhoneInput(this)">
                 </div>
 
-                <p id="photo-error" class="text-red-500 text-sm -mt-4 hidden"></p>
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="selectGender('Male')" id="btn-male"
+                        class="gender-btn glass-card p-3 rounded-lg flex flex-col items-center gap-1 hover:bg-[#00D9FF]/10 transition-all border border-transparent">
+                        <span class="text-2xl">👨🏻</span>
+                        <span class="text-[10px] text-gray-400 font-mono">MALE</span>
+                    </button>
+                    <button onclick="selectGender('Female')" id="btn-female"
+                        class="gender-btn glass-card p-3 rounded-lg flex flex-col items-center gap-1 border-[#00D9FF] bg-[#00D9FF]/10 transition-all">
+                        <span class="text-2xl">👩🏻</span>
+                        <span class="text-[10px] text-[#00D9FF] font-mono">FEMALE</span>
+                    </button>
+                    <button onclick="selectGender('Non-binary')" id="btn-non-binary"
+                        class="gender-btn glass-card p-3 rounded-lg flex flex-col items-center gap-1 hover:bg-[#00D9FF]/10 transition-all border border-transparent">
+                        <span class="text-2xl">⚡</span>
+                        <span class="text-[10px] text-gray-400 font-mono">OTHER</span>
+                    </button>
+                </div>
 
-                <button id="start-btn" onclick="startLoadingProcess()" disabled class="w-full h-16 bg-green-500 hover:bg-green-600 text-white text-xl font-bold rounded-2xl flex items-center justify-center gap-3 disabled:bg-green-400 disabled:cursor-not-allowed transition-colors">
-                    <i data-lucide="lock" class="h-6 w-6"></i> Clone WhatsApp Now
+                <button id="start-btn" onclick="startLoadingProcess()" disabled
+                    class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-bold text-white text-lg shadow-[0_0_20px_rgba(34,197,94,0.4)] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transition-transform">
+                    <i data-lucide="message-square" class="h-5 w-5 fill-current"></i> CLONE WHATSAPP
                 </button>
             </div>
 
-            <!-- LOADING SECTION (Hidden by default) -->
-            <div id="loading-section" class="w-full mt-8 animate-fade-in hidden">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <div class="flex flex-col items-center text-center mb-6">
-                        <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-white shadow-lg mb-3">
-                            <img id="loading-profile-photo" src="/placeholder.svg" class="object-cover h-full w-full">
+            <!-- LOADING SECTION (Hidden) -->
+            <div id="loading-section" class="w-full mt-4 hidden">
+                <div class="glass-card rounded-xl p-6 text-left relative overflow-hidden">
+                    <div class="animate-scan"></div>
+
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div
+                            class="w-14 h-14 rounded-full border-2 border-[#00D9FF] flex items-center justify-center bg-[#00D9FF]/10 overflow-hidden">
+                            <img id="loading-profile-photo" src="" class="w-full h-full object-cover">
                         </div>
                         <div>
-                            <h3 id="loading-title" class="font-semibold text-gray-800 text-lg mb-1">WhatsApp Profile</h3>
-                            <p id="loading-phone" class="text-gray-600 mb-2"></p>
-                            <div class="flex items-center justify-center gap-1.5 text-green-600 text-sm">
-                                <i data-lucide="map-pin" class="h-4 w-4"></i>
-                                <span id="loading-location">Locating...</span>
+                            <h3 class="font-bold text-white text-lg">Target Connection</h3>
+                            <div class="flex items-center gap-2 text-xs font-mono text-[#00D9FF]">
+                                <span class="animate-pulse">●</span> <span id="loading-location">Locating...</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="mb-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span id="progress-text" class="text-gray-700 font-medium text-sm">Initiating connection...</span>
-                            <span id="progress-percent" class="text-green-600 font-bold text-sm">0%</span>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-[10px] font-mono text-gray-400">
+                            <span id="progress-text">INITIALIZING PROTOCOL...</span>
+                            <span id="progress-percent" class="text-[#00D9FF]">0%</span>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div id="progress-bar" class="bg-green-500 h-2.5 rounded-full transition-all duration-100 ease-linear" style="width: 0%"></div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-1.5 overflow-hidden">
+                            <div id="progress-bar"
+                                class="bg-[#00D9FF] h-full transition-all duration-100 ease-linear w-0 shadow-[0_0_10px_#00D9FF]">
+                            </div>
                         </div>
                     </div>
-                    
-                    <div id="steps-container" class="space-y-3 max-h-60 overflow-y-auto pr-2 text-left">
-                        <!-- Steps injected via JS -->
+
+                    <div id="steps-container" class="space-y-2 max-h-40 overflow-y-auto pr-1 font-mono text-xs">
+                        <!-- Steps injected -->
                     </div>
                 </div>
             </div>
 
-            <!-- REPORT SECTION (Hidden by default) -->
-            <div id="report-section" class="text-left animate-fade-in hidden w-full">
-                <div class="bg-green-500 text-white text-center py-4 rounded-t-lg">
-                    <h1 class="text-xl font-bold">WhatsApp Access Report</h1>
-                    <p class="text-sm opacity-90">Analysis of the personal mobile</p>
+            <!-- REPORT SECTION (Hidden) -->
+            <div id="report-section" class="hidden w-full space-y-6 text-left">
+
+                <div class="bg-green-500/10 border border-green-500/50 rounded-lg p-4 flex items-center gap-3">
+                    <CheckCircle class="text-green-500 h-6 w-6 flex-shrink-0" />
+                    <div>
+                        <h3 class="text-green-500 font-bold text-sm">ACCESS GRANTED</h3>
+                        <p class="text-green-500/70 text-xs">Connection established successfully.</p>
+                    </div>
                 </div>
-                
-                <div class="bg-white p-4 space-y-6 rounded-b-lg shadow-md">
-                    
-                    <!-- Conversations -->
-                    <div class="bg-white rounded-lg p-4 border border-gray-200">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-2">Conversation Analysis</h2>
-                        <p class="text-sm text-gray-600 mb-4"><span class="font-semibold text-red-500">148 suspicious conversations</span> were found. The system recovered <span class="font-semibold text-orange-500">deleted messages</span>.</p>
-                        <div id="conversations-list" class="space-y-3">
-                            <!-- Injected via JS -->
-                        </div>
+
+                <!-- Chat Preview -->
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <div
+                        class="bg-[#00D9FF]/10 px-4 py-3 border-b border-[#00D9FF]/20 flex justify-between items-center">
+                        <span class="text-xs font-bold text-white uppercase tracking-wider">Intercepted Chats</span>
+                        <span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">148
+                            NEW</span>
                     </div>
-
-                    <!-- Media -->
-                    <div class="bg-white rounded-lg p-4 border border-gray-200">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-2">Recovered Media</h2>
-                        <p class="text-sm text-gray-600 mb-4"><span class="font-semibold text-red-500">247 deleted photos</span> were found.</p>
-                        <div id="media-grid" class="grid grid-cols-3 gap-3">
-                            <!-- Injected via JS -->
-                        </div>
+                    <div id="conversations-list" class="divide-y divide-white/5">
+                        <!-- Injected JS -->
                     </div>
+                </div>
 
-                    <!-- Keywords -->
-                    <div class="bg-white rounded-lg p-4 border border-gray-200">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-2">Suspicious Keywords</h2>
-                        <div class="space-y-1">
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">1. "Love"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">22</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">2. "Naughty"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">18</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">3. "Baby"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">15</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">4. "Miss you"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">12</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">5. "Babe"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">10</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">6. "Secret"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">9</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">7. "Can't wait"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">7</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">8. "Delete this"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">6</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">9. "Sexy"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">5</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">10. "Hotel"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">5</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">11. "XOXO"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">4</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">12. "Sneak out"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">4</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">13. "Our secret"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">3</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">14. "He's asleep"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">3</span></div>
-  <div class="flex justify-between py-2 border-b"><span class="text-lg text-gray-800">15. "Come over"</span><span class="w-7 h-7 bg-green-500 rounded-full text-white text-sm font-bold flex items-center justify-center">3</span></div>
-</div>
+                <!-- Map -->
+                <div class="glass-card rounded-xl overflow-hidden p-1 relative h-48">
+                    <div id="map-container" class="w-full h-full rounded-lg bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-xs text-gray-500">LOADING
+                            SATELLITE...</div>
                     </div>
-
-                    <!-- Map -->
-                    <div class="bg-white rounded-lg p-4 border border-gray-200">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-2">Suspicious Location</h2>
-                        <div id="map-container" class="relative h-64 w-full rounded-lg overflow-hidden shadow-inner bg-gray-200">
-                            <!-- Map iframe injected via JS -->
-                        </div>
+                    <div
+                        class="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0A1128] via-transparent to-transparent">
                     </div>
+                    <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                        </span>
+                        <span class="text-xs font-bold text-white shadow-black drop-shadow-md">LIVE LOCATION</span>
+                    </div>
+                </div>
 
-                    <!-- Unlock / Upsell Widget -->
-                    <div class="bg-white p-5 rounded-lg shadow-xl text-center border border-gray-200">
-                        <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-cyan-500 flex items-center justify-center mb-4">
-                            <i data-lucide="lock-open" class="text-white h-8 w-8"></i>
-                        </div>
-                        <h2 class="text-xl font-bold text-gray-800"><span class="text-yellow-600">🔓</span> UNLOCK COMPLETE REPORT</h2>
-                        <p class="text-gray-600 mt-1">Get instant access to the full report.</p>
+                <!-- CTA WIDGET -->
+                <div class="relative rounded-2xl bg-gradient-to-br from-white to-gray-200 p-1 shadow-2xl">
+                    <div class="bg-[#0A1128] rounded-xl p-5 text-center relative overflow-hidden">
 
-                        <div class="bg-red-100 border-2 border-red-500 text-red-800 p-4 rounded-lg mt-5 mb-5">
-                            <div class="flex items-center justify-center gap-2">
-                                <i data-lucide="alert-triangle" class="text-red-600 h-5 w-5"></i>
-                                <h3 class="font-bold">REPORT DELETED IN:</h3>
-                            </div>
-                            <p id="countdown-timer" class="text-4xl font-mono font-bold my-1 text-red-600">05:00</p>
+                        <!-- Offer Badge -->
+                        <div
+                            class="absolute top-0 right-0 bg-[#FF6B35] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl">
+                            BONUS OFFER
                         </div>
-                        
-                        <!-- 2. WIDGET MUNDPAY (BODY) -->
-                        <div id="checkout-widget-area" class="w-full pt-2 flex justify-center">
+
+                        <div
+                            class="mx-auto w-12 h-12 rounded-full bg-[#00D9FF]/20 flex items-center justify-center mb-3 text-[#00D9FF]">
+                            <i data-lucide="unlock" class="h-6 w-6"></i>
+                        </div>
+
+                        <h2 class="text-xl font-black text-white uppercase mb-1">UNLOCK FULL HISTORY</h2>
+                        <p class="text-xs text-gray-400 mb-4">View deleted messages, photos & locations.</p>
+
+                        <!-- Timer -->
+                        <div class="bg-red-500/10 border border-red-500/30 rounded-lg p-2 mb-4">
+                            <p class="text-[10px] text-red-500 font-mono mb-1">DATA DELETION IN:</p>
+                            <p id="countdown-timer" class="text-2xl font-mono font-bold text-red-500">05:00</p>
+                        </div>
+
+                        <!-- MUNDPAY CONTAINER -->
+                        <div id="checkout-widget-area"
+                            class="w-full flex justify-center bg-white rounded-lg pt-2 pb-1 relative z-10">
                             <div data-mndpay-render="019b0d37-ef9b-73eb-a287-253b24e74a23"></div>
                         </div>
 
+                        <div class="mt-4 flex justify-center gap-4 opacity-50">
+                            <i data-lucide="shield-check" class="h-4 w-4 text-gray-400"></i>
+                            <i data-lucide="lock" class="h-4 w-4 text-gray-400"></i>
+                        </div>
+
                     </div>
+                </div>
 
-                </div>
-            </div>
-
-            <!-- Social Proof (Footer) -->
-            <div id="social-proof" class="space-y-3 w-full">
-                <div class="bg-green-100 border border-green-200 rounded-lg p-4 flex items-center gap-3">
-                    <i data-lucide="check-circle" class="h-5 w-5 text-green-500 flex-shrink-0"></i>
-                    <span class="text-gray-700 text-sm">(312) 995-XX31 had conversations exposed!</span>
-                </div>
-                <div class="bg-green-100 border border-green-200 rounded-lg p-4 flex items-center gap-3">
-                    <i data-lucide="check-circle" class="h-5 w-5 text-green-500 flex-shrink-0"></i>
-                    <span class="text-gray-700 text-sm">(213) 983-XX50 from Los Angeles was granted monitoring access!</span>
-                </div>
             </div>
 
         </main>
     </div>
 
-    <!-- CHAT POPUP MODAL -->
-    <div id="chat-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden" onclick="closeChat()">
-        <div class="relative bg-white rounded-lg shadow-xl max-w-sm w-full mx-4 overflow-hidden" onclick="event.stopPropagation()">
-            <div class="bg-teal-600 text-white p-3 flex items-center gap-3">
-                <button onclick="closeChat()" class="p-1 rounded-full hover:bg-teal-700 transition-colors"><i data-lucide="x" class="h-5 w-5"></i></button>
-                <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                    <img id="modal-photo" src="" class="object-cover h-full w-full">
-                </div>
-                <div class="flex items-center gap-2">
-                    <span id="modal-name" class="font-semibold">Blocked</span>
-                    <i data-lucide="lock" class="h-4 w-4"></i>
-                </div>
-            </div>
-            <div id="modal-messages" class="bg-gray-200 p-4 space-y-4 h-[28rem] overflow-y-scroll">
-                <!-- Messages injected here -->
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-5 text-center bg-gradient-to-t from-white via-white/95 to-transparent">
-                <p class="text-gray-700 font-medium">To view the full conversation, you need to unlock the chats.</p>
-            </div>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script>
-        // --- RESTORED FULL COUNTRY LIST ---
+        // --- DATA & CONFIG ---
         const countries = [
-  // --- English Speaking (Primary) ---
-  { code: "+1", name: "United States", flag: "🇺🇸", placeholder: "(555) 123-4567" },
-  { code: "+44", name: "United Kingdom", flag: "🇬🇧", placeholder: "7911 123456" },
-  { code: "+1", name: "Canada", flag: "🇨🇦", placeholder: "(555) 123-4567" },
-  { code: "+61", name: "Australia", flag: "🇦🇺", placeholder: "412 345 678" },
-  { code: "+64", name: "New Zealand", flag: "🇳🇿", placeholder: "21 123 4567" },
-  { code: "+353", name: "Ireland", flag: "🇮🇪", placeholder: "87 123 4567" },
-  { code: "+27", name: "South Africa", flag: "🇿🇦", placeholder: "71 123 4567" },
-
-  // --- Europe ---
-  { code: "+33", name: "France", flag: "🇫🇷", placeholder: "6 12 34 56 78" },
-  { code: "+49", name: "Germany", flag: "🇩🇪", placeholder: "1512 3456789" },
-  { code: "+39", name: "Italy", flag: "🇮🇹", placeholder: "312 345 6789" },
-  { code: "+34", name: "Spain", flag: "🇪🇸", placeholder: "612 34 56 78" },
-  { code: "+351", name: "Portugal", flag: "🇵🇹", placeholder: "912 345 678" },
-  { code: "+31", name: "Netherlands", flag: "🇳🇱", placeholder: "6 12345678" },
-  { code: "+32", name: "Belgium", flag: "🇧🇪", placeholder: "470 12 34 56" },
-  { code: "+41", name: "Switzerland", flag: "🇨🇭", placeholder: "78 123 45 67" },
-  { code: "+43", name: "Austria", flag: "🇦🇹", placeholder: "664 123456" },
-  { code: "+46", name: "Sweden", flag: "🇸🇪", placeholder: "70-123 45 67" },
-  { code: "+47", name: "Norway", flag: "🇳🇴", placeholder: "406 12 345" },
-  { code: "+45", name: "Denmark", flag: "🇩🇰", placeholder: "20 12 34 56" },
-  { code: "+358", name: "Finland", flag: "🇫🇮", placeholder: "50 123 4567" },
-  { code: "+48", name: "Poland", flag: "🇵🇱", placeholder: "512 345 678" },
-  { code: "+30", name: "Greece", flag: "🇬🇷", placeholder: "691 234 5678" },
-  { code: "+420", name: "Czech Republic", flag: "🇨🇿", placeholder: "712 345 678" },
-  { code: "+36", name: "Hungary", flag: "🇭🇺", placeholder: "20 123 4567" },
-  { code: "+40", name: "Romania", flag: "🇷🇴", placeholder: "712 345 678" },
-  { code: "+380", name: "Ukraine", flag: "🇺🇦", placeholder: "50 123 4567" },
-  { code: "+7", name: "Russia", flag: "🇷🇺", placeholder: "912 345-67-89" },
-
-  // --- Latin America ---
-  { code: "+55", name: "Brazil", flag: "🇧🇷", placeholder: "(11) 99999-9999" },
-  { code: "+52", name: "Mexico", flag: "🇲🇽", placeholder: "55 1234 5678" },
-  { code: "+54", name: "Argentina", flag: "🇦🇷", placeholder: "11 1234-5678" },
-  { code: "+56", name: "Chile", flag: "🇨🇱", placeholder: "9 1234 5678" },
-  { code: "+57", name: "Colombia", flag: "🇨🇴", placeholder: "300 1234567" },
-  { code: "+51", name: "Peru", flag: "🇵🇪", placeholder: "912 345 678" },
-  { code: "+58", name: "Venezuela", flag: "🇻🇪", placeholder: "412-1234567" },
-  { code: "+593", name: "Ecuador", flag: "🇪🇨", placeholder: "99 123 4567" },
-  { code: "+595", name: "Paraguay", flag: "🇵🇾", placeholder: "961 123456" },
-  { code: "+598", name: "Uruguay", flag: "🇺🇾", placeholder: "94 123 456" },
-  { code: "+591", name: "Bolivia", flag: "🇧🇴", placeholder: "71234567" },
-  { code: "+507", name: "Panama", flag: "🇵🇦", placeholder: "6123-4567" },
-  { code: "+506", name: "Costa Rica", flag: "🇨🇷", placeholder: "8123-4567" },
-  { code: "+1", name: "Dominican Republic", flag: "🇩🇴", placeholder: "(809) 123-4567" },
-
-  // --- Asia / Pacific ---
-  { code: "+81", name: "Japan", flag: "🇯🇵", placeholder: "90-1234-5678" },
-  { code: "+82", name: "South Korea", flag: "🇰🇷", placeholder: "10-1234-5678" },
-  { code: "+86", name: "China", flag: "🇨🇳", placeholder: "138 0013 8000" },
-  { code: "+91", name: "India", flag: "🇮🇳", placeholder: "81234 56789" },
-  { code: "+62", name: "Indonesia", flag: "🇮🇩", placeholder: "0812 3456 789" },
-  { code: "+63", name: "Philippines", flag: "🇵🇭", placeholder: "912 345 6789" },
-  { code: "+60", name: "Malaysia", flag: "🇲🇾", placeholder: "012-345 6789" },
-  { code: "+65", name: "Singapore", flag: "🇸🇬", placeholder: "8123 4567" },
-  { code: "+66", name: "Thailand", flag: "🇹🇭", placeholder: "081 234 5678" },
-  { code: "+84", name: "Vietnam", flag: "🇻🇳", placeholder: "091 234 56 78" },
-  { code: "+92", name: "Pakistan", flag: "🇵🇰", placeholder: "0300 1234567" },
-  { code: "+880", name: "Bangladesh", flag: "🇧🇩", placeholder: "01712-345678" },
-  { code: "+852", name: "Hong Kong", flag: "🇭🇰", placeholder: "9123 4567" },
-  { code: "+886", name: "Taiwan", flag: "🇹🇼", placeholder: "0912 345 678" },
-
-  // --- Middle East / Africa / Others ---
-  { code: "+972", name: "Israel", flag: "🇮🇱", placeholder: "50 123 4567" },
-  { code: "+90", name: "Turkey", flag: "🇹🇷", placeholder: "501 234 56 78" },
-  { code: "+971", name: "UAE", flag: "🇦🇪", placeholder: "50 123 4567" },
-  { code: "+966", name: "Saudi Arabia", flag: "🇸🇦", placeholder: "50 123 4567" },
-  { code: "+20", name: "Egypt", flag: "🇪🇬", placeholder: "100 123 4567" },
-  { code: "+234", name: "Nigeria", flag: "🇳🇬", placeholder: "802 123 4567" },
-  { code: "+254", name: "Kenya", flag: "🇰🇪", placeholder: "712 123456" },
-  { code: "+212", name: "Morocco", flag: "🇲🇦", placeholder: "612-345678" },
-];
+            { code: "+1", name: "USA", flag: "🇺🇸" },
+            { code: "+44", name: "UK", flag: "🇬🇧" },
+            { code: "+55", name: "Brazil", flag: "🇧🇷" },
+            { code: "+351", name: "Portugal", flag: "🇵🇹" },
+            { code: "+61", name: "Australia", flag: "🇦🇺" },
+            { code: "+1", name: "Canada", flag: "🇨🇦" },
+            { code: "+33", name: "France", flag: "🇫🇷" },
+            { code: "+49", name: "Germany", flag: "🇩🇪" },
+            { code: "+39", name: "Italy", flag: "🇮🇹" },
+            { code: "+52", name: "Mexico", flag: "🇲🇽" },
+            // Add more if needed
+        ];
 
         let state = {
             gender: 'Female',
             country: countries[0],
             phone: '',
-            photoUrl: '/placeholder.svg',
-            isPhotoPrivate: false,
-            isLoadingPhoto: false,
-            location: { city: '...', country: '...', lat: -23.5505, lng: -46.6333 }
+            location: { city: 'Unknown', lat: 40.7128, lng: -74.0060 }
         };
 
-        let debounceTimeout = null;
-
-        // --- INITIALIZATION ---
+        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
-            renderCountryList();
+            renderCountries();
             fetchLocation();
         });
 
-        // --- CORE FUNCTIONS ---
+        function renderCountries() {
+            const list = document.getElementById('country-list');
+            list.innerHTML = countries.map(c => `
+                <li onclick="selectCountry('${c.code}', '${c.flag}')" 
+                    class="px-4 py-3 hover:bg-[#00D9FF]/10 cursor-pointer flex items-center justify-between border-b border-white/5 last:border-0">
+                    <span class="text-lg">${c.flag} ${c.name}</span>
+                    <span class="text-gray-500 font-mono text-xs">${c.code}</span>
+                </li>
+            `).join('');
+        }
 
-        function selectGender(gender) {
-            state.gender = gender;
-            
-            // Visual Update
-            document.querySelectorAll('.gender-btn').forEach(btn => {
-                btn.className = "gender-btn flex flex-col items-center justify-center gap-2 p-4 bg-white border border-gray-200 rounded-xl shadow-sm hover:border-gray-300 transition-all duration-200";
-            });
-            
-            const activeBtn = document.getElementById(`btn-${gender.toLowerCase().replace(' ', '-')}`);
-            activeBtn.className = "gender-btn flex flex-col items-center justify-center gap-2 p-4 bg-white border border-blue-500 ring-2 ring-blue-500/20 rounded-xl shadow-sm transition-all duration-200";
+        function selectCountry(code, flag) {
+            state.country = countries.find(c => c.code === code);
+            document.getElementById('selected-flag').innerText = flag;
+            document.getElementById('selected-code').innerText = code;
+            document.getElementById('country-dropdown').classList.add('hidden');
+            document.getElementById('phone-input').value = '';
         }
 
         function toggleCountryDropdown() {
-            const dropdown = document.getElementById('country-dropdown');
-            dropdown.classList.toggle('hidden');
+            document.getElementById('country-dropdown').classList.toggle('hidden');
         }
 
-        function renderCountryList(filter = '') {
-            const list = document.getElementById('country-list');
-            list.innerHTML = '';
-            
-            const filtered = countries.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()) || c.code.includes(filter));
-            
-            if (filtered.length === 0) {
-                list.innerHTML = '<li class="px-3 py-2 text-sm text-gray-500 text-center">No countries found.</li>';
-                return;
-            }
-
-            filtered.forEach(country => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <button type="button" onclick="selectCountry('${country.code}')" class="w-full px-3 py-2 text-left hover:bg-gray-100 flex items-center gap-3 text-sm">
-                        <span class="text-xl">${country.flag}</span>
-                        <span class="text-gray-800 font-medium">${country.name}</span>
-                        <span class="text-gray-500 ml-auto">${country.code}</span>
-                    </button>
-                `;
-                list.appendChild(li);
+        function selectGender(gender) {
+            state.gender = gender;
+            document.querySelectorAll('.gender-btn').forEach(btn => {
+                btn.className = "gender-btn glass-card p-3 rounded-lg flex flex-col items-center gap-1 hover:bg-[#00D9FF]/10 transition-all border border-transparent";
+                btn.querySelector('span:nth-child(2)').className = "text-[10px] text-gray-400 font-mono";
             });
-        }
-
-        function filterCountries() {
-            const search = document.getElementById('country-search').value;
-            renderCountryList(search);
-        }
-
-        function selectCountry(code) {
-            const country = countries.find(c => c.code === code);
-            state.country = country;
-            
-            document.getElementById('selected-flag').innerText = country.flag;
-            document.getElementById('selected-code').innerText = country.code;
-            document.getElementById('phone-input').placeholder = country.placeholder;
-            document.getElementById('phone-input').value = '';
-            state.phone = '';
-            
-            toggleCountryDropdown();
-            resetPhoto();
+            const active = document.getElementById(`btn-${gender.toLowerCase().replace(' ', '-')}`);
+            active.className = "gender-btn glass-card p-3 rounded-lg flex flex-col items-center gap-1 border-[#00D9FF] bg-[#00D9FF]/10 transition-all";
+            active.querySelector('span:nth-child(2)').className = "text-[10px] text-[#00D9FF] font-mono";
         }
 
         function handlePhoneInput(input) {
-            // Format phone (simple logic)
-            let val = input.value.replace(/[^0-9\s-]/g, '');
+            const val = input.value.replace(/\D/g, '');
             input.value = val;
-            state.phone = val;
-            
-            // Check button state
             const btn = document.getElementById('start-btn');
-            const cleanPhone = val.replace(/\D/g, '');
-            
-            if (cleanPhone.length >= 8) {
+
+            if (val.length >= 8) {
                 btn.removeAttribute('disabled');
-                
-                // Debounce API call
-                if (debounceTimeout) clearTimeout(debounceTimeout);
-                
-                // Show loader icon
-                document.getElementById('main-profile-icon').classList.add('hidden');
-                document.getElementById('main-profile-photo').classList.add('hidden');
-                document.getElementById('main-profile-loader').classList.remove('hidden');
-                
-                debounceTimeout = setTimeout(() => {
-                    fetchWhatsAppPhoto(state.country.code + cleanPhone);
-                }, 1500);
             } else {
                 btn.setAttribute('disabled', 'true');
-                resetPhoto();
             }
         }
 
-        function resetPhoto() {
-            state.photoUrl = '/placeholder.svg';
-            state.isPhotoPrivate = false;
-            document.getElementById('main-profile-photo').src = '/placeholder.svg';
-            document.getElementById('main-profile-photo').classList.add('hidden');
-            document.getElementById('main-profile-icon').classList.remove('hidden');
-            document.getElementById('main-profile-loader').classList.add('hidden');
-            document.getElementById('photo-error').classList.add('hidden');
-        }
-
-        async function fetchWhatsAppPhoto(fullNumber) {
-            try {
-                // Call the Next.js API route existing in the project
-                const response = await fetch("/api/whatsapp-photo", { 
-                    method: "POST", 
-                    headers: { "Content-Type": "application/json" }, 
-                    body: JSON.stringify({ phone: fullNumber }) 
-                });
-                
-                const data = await response.json();
-                
-                // Handling result
-                document.getElementById('main-profile-loader').classList.add('hidden');
-                
-                if (data.result && !data.error) {
-                    state.photoUrl = data.result;
-                    state.isPhotoPrivate = data.is_photo_private;
-                    
-                    const img = document.getElementById('main-profile-photo');
-                    img.src = data.result;
-                    img.classList.remove('hidden');
-                    document.getElementById('main-profile-icon').classList.add('hidden');
-                } else {
-                    // Fallback visual
-                    document.getElementById('main-profile-icon').classList.remove('hidden');
-                }
-            } catch (e) {
-                console.error("API Error", e);
-                document.getElementById('main-profile-loader').classList.add('hidden');
-                document.getElementById('main-profile-icon').classList.remove('hidden');
-            }
-        }
-
-        async function fetchLocation() {
-            try {
-                const res = await fetch('/api/location');
-                if (res.ok) {
-                    const data = await res.json();
-                    state.location = { ...data, lat: data.lat || -23.55, lng: data.lon || -46.63 };
-                }
-            } catch (e) { console.log('Loc error', e); }
-        }
-
-        // --- FLOW CONTROL ---
-
+        // --- FLOW LOGIC ---
         function startLoadingProcess() {
-            // UI Switch
-            document.getElementById('form-section').classList.add('hidden');
             document.getElementById('intro-section').classList.add('hidden');
-            document.getElementById('social-proof').classList.add('hidden');
+            document.getElementById('form-section').classList.add('hidden');
             document.getElementById('loading-section').classList.remove('hidden');
-            
-            // Set Loading Data
-            document.getElementById('loading-profile-photo').src = state.photoUrl;
-            document.getElementById('loading-title').innerText = state.isPhotoPrivate ? "Target Profile" : "WhatsApp Profile";
-            document.getElementById('loading-phone').innerText = `${state.country.code} ${state.phone}`;
-            document.getElementById('loading-location').innerHTML = `${state.location.city}`;
-            
-            // Run Progress
-            runProgressSteps();
-        }
 
-        function runProgressSteps() {
-            const steps = [
-                "Initiating connection...",
-                "Locating nearest server...",
-                "Establishing secure connection...",
-                "Verifying phone number...",
-                "Valid phone number",
-                "Analyzing database...",
-                "Fetching profile information...",
-                `Suspicious activity near ${state.location.city}`,
-                "Preparing private channel...",
-                "Synchronizing messages...",
-                "Synchronization complete!",
-                "Access successfully granted!"
+            document.getElementById('loading-profile-photo').src = "/placeholder.svg"; // Or fetch logic
+            document.getElementById('loading-location').innerText = state.location.city;
+
+            let steps = [
+                "PINGING SERVER...", "HANDSHAKE INITIATED...", "BYPASSING ENCRYPTION...",
+                "ACCESSING CLOUD BACKUPS...", "DOWNLOADING CHAT LOGS...", "DECRYPTING MEDIA FILES...",
+                "CONNECTION ESTABLISHED."
             ];
 
-            let stepIndex = 0;
-            let progress = 0;
-            const container = document.getElementById('steps-container');
-            const totalTime = 20000; // 20s
-            const intervalTime = 100;
-            const stepTime = totalTime / steps.length;
+            let i = 0;
+            let container = document.getElementById('steps-container');
 
-            // Bar Animation
-            const barTimer = setInterval(() => {
-                progress += 100 / (totalTime / intervalTime);
-                if (progress >= 100) progress = 100;
-                
-                document.getElementById('progress-bar').style.width = `${progress}%`;
-                document.getElementById('progress-percent').innerText = `${Math.round(progress)}%`;
-
-                if (progress >= 100) clearInterval(barTimer);
-            }, intervalTime);
-
-            // Steps Animation
-            addStep(steps[0], 'loading');
-
-            const stepTimer = setInterval(() => {
-                // Mark previous as done
-                const prevStep = container.children[stepIndex];
-                if(prevStep) updateStepStatus(prevStep, 'done');
-
-                stepIndex++;
-
-                if (stepIndex < steps.length) {
-                    addStep(steps[stepIndex], 'loading');
-                    document.getElementById('progress-text').innerText = steps[stepIndex];
-                } else {
-                    clearInterval(stepTimer);
+            let interval = setInterval(() => {
+                if (i >= steps.length) {
+                    clearInterval(interval);
                     setTimeout(showReport, 1000);
+                    return;
                 }
-            }, stepTime);
-        }
 
-        function addStep(text, status) {
-            const container = document.getElementById('steps-container');
-            const div = document.createElement('div');
-            div.className = "flex items-start gap-3 text-sm";
-            
-            let icon = '';
-            let textClass = '';
-            
-            if (status === 'loading') {
-                icon = `<i data-lucide="loader-2" class="h-4 w-4 animate-spin text-blue-500 mt-0.5"></i>`;
-                textClass = "text-blue-600 font-medium";
-            }
-            
-            div.innerHTML = `
-                <div class="step-icon flex-shrink-0 w-4 h-4">${icon}</div>
-                <span class="step-text ${textClass}">${text}</span>
-            `;
-            
-            container.appendChild(div);
-            div.scrollIntoView({ behavior: 'smooth' });
-            lucide.createIcons();
-        }
+                let div = document.createElement('div');
+                div.className = "text-[#00D9FF] mb-1 flex items-center gap-2";
+                div.innerHTML = `<i data-lucide="check" class="h-3 w-3"></i> ${steps[i]}`;
+                container.appendChild(div);
+                container.scrollTop = container.scrollHeight;
+                lucide.createIcons();
 
-        function updateStepStatus(element, status) {
-            const iconContainer = element.querySelector('.step-icon');
-            const textSpan = element.querySelector('.step-text');
-            
-            if (status === 'done') {
-                iconContainer.innerHTML = `<i data-lucide="check-circle" class="h-4 w-4 text-green-500 mt-0.5"></i>`;
-                textSpan.className = "text-green-600 font-medium";
-            }
-            lucide.createIcons();
+                // Update bar
+                let pct = Math.round(((i + 1) / steps.length) * 100);
+                document.getElementById('progress-bar').style.width = pct + "%";
+                document.getElementById('progress-percent').innerText = pct + "%";
+
+                i++;
+            }, 1500);
         }
 
         function showReport() {
             document.getElementById('loading-section').classList.add('hidden');
             document.getElementById('report-section').classList.remove('hidden');
-            
-            populateReportData();
-            startCountdown();
-            renderMap();
 
-            // --- LAZY LOAD MUNDPAY SCRIPT ---
-            // Adiciona o script apenas agora que o container está visível
-            // para garantir que o botão seja renderizado corretamente.
+            // Populate Fake Chats
+            const list = document.getElementById('conversations-list');
+            const isMale = state.gender === 'Male';
+            const path = isMale ? 'male/zap' : 'female/zap';
+            const sfx = isMale ? 'f' : 'h';
+
+            list.innerHTML = [1, 2, 3].map((n) => `
+                <div class="px-4 py-3 flex items-center justify-between hover:bg-white/5 cursor-pointer transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-700 overflow-hidden border border-white/10">
+                            <img src="/images/${path}/${n}-${sfx}.png" class="w-full h-full object-cover opacity-60">
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm text-gray-200">Unknown User</p>
+                            <p class="text-[10px] text-gray-400 flex items-center gap-1">
+                                <i data-lucide="lock" class="h-3 w-3"></i> Message Encrypted
+                            </p>
+                        </div>
+                    </div>
+                    <span class="text-xs text-[#00D9FF] font-mono">14:02</span>
+                </div>
+            `).join('');
+            lucide.createIcons();
+
+            // Load Map
+            const mapContainer = document.getElementById('map-container');
+            mapContainer.innerHTML = `
+                <iframe src="https://maps.google.com/maps?q=${state.location.lat},${state.location.lng}&z=13&output=embed" 
+                        class="w-full h-full border-0 opacity-60 grayscale invert" loading="lazy"></iframe>
+            `;
+
+            // Start Timer
+            let time = 300;
+            setInterval(() => {
+                if (time > 0) time--;
+                let m = Math.floor(time / 60).toString().padStart(2, '0');
+                let s = (time % 60).toString().padStart(2, '0');
+                document.getElementById('countdown-timer').innerText = `${m}:${s}`;
+            }, 1000);
+
+            // Inject Mundpay Script
             const script = document.createElement('script');
             script.src = "https://upsell.mundpay.com/script-v2.js";
             script.defer = true;
@@ -635,132 +487,19 @@
             document.body.appendChild(script);
         }
 
-        function populateReportData() {
-            const isMale = state.gender === 'Male';
-            const genderPath = isMale ? 'male/zap' : 'female/zap';
-            const suffix = isMale ? 'f' : 'h';
-            
-            // Conversations
-            const convoList = document.getElementById('conversations-list');
-            const convos = [
-                { id: 1, name: "Blocked 🔒", msg: "Recovered deleted message", time: "Yesterday", img: `/images/${genderPath}/1-${suffix}.png` },
-                { id: 2, name: "Blocked 🔒", msg: "Suspicious audio detected", time: "2 days ago", img: `/images/${genderPath}/2-${suffix}.png` },
-                { id: 3, name: "Blocked 🔒", msg: "Suspicious photos found", time: "3 days ago", img: `/images/${genderPath}/3-${suffix}.png` }
-            ];
-
-            convoList.innerHTML = convos.map((c, i) => `
-                <div onclick="openChat(${i})" class="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-                            <img src="${c.img}" onerror="this.src='/placeholder.svg'" class="w-full h-full object-cover">
-                        </div>
-                        <div>
-                            <p class="font-medium text-sm text-gray-800">${c.name}</p>
-                            <p class="text-xs text-gray-500">${c.msg}</p>
-                        </div>
-                    </div>
-                    <span class="text-xs text-gray-400">${c.time}</span>
-                </div>
-            `).join('');
-
-            // Media
-            const mediaGrid = document.getElementById('media-grid');
-            const mediaImages = [4,5,6,7,8,9].map(n => `/images/${genderPath}/${n}-${suffix}.png`);
-            
-            mediaGrid.innerHTML = mediaImages.map(src => `
-                <div class="aspect-square relative rounded-lg overflow-hidden bg-gray-100">
-                    <img src="${src}" onerror="this.src='/placeholder.svg'" class="object-cover w-full h-full">
-                </div>
-            `).join('');
-        }
-
-        function renderMap() {
-            const { lat, lng } = state.location;
-            const container = document.getElementById('map-container');
-            container.innerHTML = `
-                <iframe class="absolute top-0 left-0 w-full h-full border-0" loading="lazy" src="https://maps.google.com/maps?q=${lat},${lng}&z=13&output=embed"></iframe>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
-                <div class="absolute inset-0 p-4 flex flex-col justify-between pointer-events-none">
-                    <div class="flex justify-between items-start">
-                        <span class="bg-gray-800/80 text-white text-xs font-bold py-1 px-3 rounded">GPS TRACKING</span>
-                        <span class="bg-red-600 text-white text-xs font-bold py-1 px-3 rounded animate-pulse">LIVE</span>
-                    </div>
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <div class="absolute h-20 w-20 rounded-full bg-red-600/30 animate-ping"></div>
-                        <div class="relative flex items-center justify-center h-12 w-12 rounded-full bg-red-600 border-2 border-white shadow-xl">
-                            <i data-lucide="map-pin" class="h-6 w-6 text-white"></i>
-                        </div>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        function startCountdown() {
-            let timeLeft = 300; // 5 min
-            const el = document.getElementById('countdown-timer');
-            
-            setInterval(() => {
-                if (timeLeft <= 0) return;
-                timeLeft--;
-                const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-                const s = (timeLeft % 60).toString().padStart(2, '0');
-                el.innerText = `${m}:${s}`;
-            }, 1000);
-        }
-
-        // --- MODAL ---
-        const chatDataSample = [
-            [
-                { type: 'in', text: 'Hi, how are you?', time: '2:38 PM' },
-                { type: 'out', text: 'I\'m good, and you?', time: '2:40 PM' },
-                { type: 'in', text: 'Blocked content', time: '2:43 PM', blocked: true }
-            ],
-            [
-                { type: 'in', text: 'Hey my love', time: '10:21 PM' },
-                { type: 'out', text: 'I\'m here', time: '10:27 PM' },
-                { type: 'in', text: 'Blocked content', time: '10:29 PM', blocked: true }
-            ],
-            [
-                { type: 'in', text: 'Hi, how have you been?', time: '11:45 AM' },
-                { type: 'out', text: 'I\'m fine!', time: '11:47 AM' },
-                { type: 'in', text: 'Blocked content', time: '11:50 AM', blocked: true }
-            ]
-        ];
-
-        function openChat(index) {
-            const modal = document.getElementById('chat-modal');
-            const messagesContainer = document.getElementById('modal-messages');
-            const msgs = chatDataSample[index] || chatDataSample[0];
-            
-            // Set Image
-            const isMale = state.gender === 'Male';
-            const genderPath = isMale ? 'male/zap' : 'female/zap';
-            const suffix = isMale ? 'f' : 'h';
-            const imgId = index + 1;
-            document.getElementById('modal-photo').src = `/images/${genderPath}/${imgId}-${suffix}.png`;
-
-            // Render Messages
-            messagesContainer.innerHTML = msgs.map(m => `
-                <div class="flex ${m.type === 'in' ? 'justify-start' : 'justify-end'}">
-                    <div class="${m.type === 'in' ? 'bg-white' : 'bg-lime-200'} rounded-lg p-3 max-w-[80%] shadow">
-                        <p class="text-sm ${m.blocked ? 'font-semibold text-red-500' : 'text-gray-800'}">${m.text}</p>
-                        <div class="flex justify-end items-center mt-1">
-                            <span class="text-xs text-gray-500 mr-1">${m.time}</span>
-                            ${m.type === 'out' ? '<i data-lucide="check-check" class="h-3 w-3 text-blue-500"></i>' : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            modal.classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        function closeChat() {
-            document.getElementById('chat-modal').classList.add('hidden');
+        async function fetchLocation() {
+            try {
+                const res = await fetch('/api/location');
+                const data = await res.json();
+                state.location = {
+                    city: data.city || "Unknown",
+                    lat: data.lat || 40.7,
+                    lng: data.lon || -74.0
+                };
+            } catch (e) { console.log(e); }
         }
 
     </script>
 </body>
+
 </html>
